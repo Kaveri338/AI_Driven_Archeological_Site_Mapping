@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Driven Archaeological Site Mapping</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+
+
+            <div id="welcome-message" style="display: none;">
+                Welcome, <span id="username-display"></span>!
+                <button id="logout">Logout</button>
+            </div>
+        </header>
+
+        <main id="main-content">
+            <div id="message-area" class="card" style="display: none;"></div>
+            <section id="auth-section" class="card">
+                <div id="login-form">
+                    <h2>Login</h2>
+                    <label for="login-username">Username</label>
+                    <input type="text" id="login-username" placeholder="Username">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="Password">
+                    <button id="login-button">Login</button>
+                    <p>Don't have an account? <a href="#" id="switch-to-create">Create one</a></p>
+                </div>
+                <div id="create-account-form" style="display: none;">
+                    <h2>Create Account</h2>
+                    <label for="create-username">Username</label>
+                    <input type="text" id="create-username" placeholder="Username">
+                    <label for="create-password">Password</label>
+                    <input type="password" id="create-password" placeholder="Password">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password" placeholder="Confirm Password">
+                    <button id="create-account-button">Create Account</button>
+                    <p>Already have an account? <a href="#" id="switch-to-login">Login</a></p>
+                </div>
+            </section>
+
+            <section id="dashboard-section" class="card" style="display: none;">
+                <h1>AI DRIVEN ARCHEOLOGICAL SITE MAPPING</h1>
+                <h2>Choose an Analysis</h2>
+                <div class="analysis-options">
+                    <button id="vegetation-analysis-btn" class="analysis-btn">Vegetation Analysis</button>
+                    <button id="soil-detection-btn" class="analysis-btn">Soil Detection</button>
+                </div>
+            </section>
+
+            <section id="analysis-page" class="card" style="display: none;">
+                <h2 id="analysis-title"></h2>
+                <div class="image-upload-section">
+                    <h3>Browse Image</h3>
+                    <input type="file" id="image-input" accept="image/*">
+                    <button id="upload-button" disabled>Upload Image</button>
+                    <img id="preview-image" src="#" alt="Image Preview" style="display: none;">
+                </div>
+                <div class="result-section">
+                    <h3>Analysis Result</h3>
+                    <div id="result-display">
+                        <!-- Results will be displayed here -->
+                        <p>Upload an image to see results.</p>
+                    </div>
+                </div>
+                <button id="back-to-dashboard">Back to Dashboard</button>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
