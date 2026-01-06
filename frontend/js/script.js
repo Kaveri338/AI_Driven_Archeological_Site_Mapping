@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const BACKEND_URL = "https://kaveri30-ai-driven-archeological-site-mapping-backend.hf.space";
+
     const welcomeMessage = document.getElementById('welcome-message');
     const usernameDisplay = document.getElementById('username-display');
     const logoutBtn = document.getElementById('logout');
@@ -30,96 +32,76 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultDisplay = document.getElementById('result-display');
     const backToDashboardBtn = document.getElementById('back-to-dashboard');
 
-    const messageArea = document.getElementById('message-area'); // New message area
+    const messageArea = document.getElementById('message-area');
+    let currentUser = null;
 
-    let currentUser = null; // In a real app, this would be managed by a backend session
-
-    // Helper to display messages
     const displayMessage = (message, type = 'info') => {
-        if (messageArea) {
-            messageArea.textContent = message;
-            messageArea.className = `card ${type}-message`; // Use CSS classes for styling
-            messageArea.style.display = 'block';
+        if (!messageArea) return;
+        messageArea.textContent = message;
+        messageArea.className = `card ${type}-message`;
+        messageArea.style.display = message ? 'block' : 'none';
+        if (message) {
             setTimeout(() => {
                 messageArea.style.display = 'none';
                 messageArea.textContent = '';
-            }, 5000); // Hide after 5 seconds
+            }, 5000);
         }
     };
 
-
-    // --- Authentication Logic ---
-
     const showAuth = () => {
-        if (authSection) authSection.style.display = 'block';
-        if (dashboardSection) dashboardSection.style.display = 'none';
-        if (analysisPage) analysisPage.style.display = 'none';
-        if (welcomeMessage) welcomeMessage.style.display = 'none';
-        displayMessage('', 'info'); // Clear any previous messages
+        authSection.style.display = 'block';
+        dashboardSection.style.display = 'none';
+        analysisPage.style.display = 'none';
+        welcomeMessage.style.display = 'none';
     };
 
     const showDashboard = (username) => {
         currentUser = username;
-        if (authSection) authSection.style.display = 'none';
-        if (dashboardSection) dashboardSection.style.display = 'block';
-        if (analysisPage) analysisPage.style.display = 'none';
-        if (welcomeMessage) welcomeMessage.style.display = 'flex';
-        if (usernameDisplay) usernameDisplay.textContent = username;
-        displayMessage('', 'info'); // Clear any previous messages
+        authSection.style.display = 'none';
+        dashboardSection.style.display = 'block';
+        analysisPage.style.display = 'none';
+        welcomeMessage.style.display = 'flex';
+        usernameDisplay.textContent = username;
     };
 
     const showAnalysisPage = (title) => {
-        if (dashboardSection) dashboardSection.style.display = 'none';
-        if (analysisPage) analysisPage.style.display = 'block';
-        if (analysisTitle) analysisTitle.textContent = title;
-        // Reset image input and result display
-        if (imageInput) imageInput.value = '';
-        if (previewImage) previewImage.style.display = 'none';
-        if (previewImage) previewImage.src = '#';
-        if (uploadButton) uploadButton.disabled = true;
-        if (resultDisplay) resultDisplay.innerHTML = '<p>Upload an image to see results.</p>';
-        displayMessage('', 'info'); // Clear any previous messages
+        dashboardSection.style.display = 'none';
+        analysisPage.style.display = 'block';
+        analysisTitle.textContent = title;
+        imageInput.value = '';
+        previewImage.style.display = 'none';
+        uploadButton.disabled = true;
+        resultDisplay.innerHTML = '<p>Upload an image to see results.</p>';
     };
 
-    // Initial state
     showAuth();
-    if (loginForm) loginForm.style.display = 'block';
-    if (createAccountForm) createAccountForm.style.display = 'none';
+    loginForm.style.display = 'block';
+    createAccountForm.style.display = 'none';
 
-
-    if (switchToCreateLink) switchToCreateLink.addEventListener('click', (e) => {
+    switchToCreateLink.addEventListener('click', e => {
         e.preventDefault();
-        if (loginForm) loginForm.style.display = 'none';
-        if (createAccountForm) createAccountForm.style.display = 'block';
-        displayMessage('', 'info'); // Clear any previous messages
+        loginForm.style.display = 'none';
+        createAccountForm.style.display = 'block';
     });
 
-    if (switchToLoginLink) switchToLoginLink.addEventListener('click', (e) => {
+    switchToLoginLink.addEventListener('click', e => {
         e.preventDefault();
-        if (loginForm) loginForm.style.display = 'block';
-        if (createAccountForm) createAccountForm.style.display = 'none';
-        displayMessage('', 'info'); // Clear any previous messages
+        loginForm.style.display = 'block';
+        createAccountForm.style.display = 'none';
     });
 
-    if (loginButton) loginButton.addEventListener('click', () => {
+    loginButton.addEventListener('click', () => {
         const username = loginUsernameInput.value;
         const password = loginPasswordInput.value;
-        // Basic client-side validation/dummy login
-        if (username && password) {
-            displayMessage('Logging in...', 'info');
-            // Simulate API call
-            setTimeout(() => {
-                displayMessage('', 'info'); // Clear message
-                showDashboard(username);
-                if (loginUsernameInput) loginUsernameInput.value = '';
-                if (loginPasswordInput) loginPasswordInput.value = '';
-            }, 1000);
-        } else {
+        if (!username || !password) {
             displayMessage('Please enter both username and password.', 'error');
+            return;
         }
+        displayMessage('Logging in...', 'info');
+        setTimeout(() => showDashboard(username), 1000);
     });
 
-    if (createAccountButton) createAccountButton.addEventListener('click', () => {
+    createAccountButton.addEventListener('click', () => {
         const username = createUsernameInput.value;
         const password = createPasswordInput.value;
         const confirmPassword = confirmPasswordInput.value;
@@ -132,79 +114,81 @@ document.addEventListener('DOMContentLoaded', () => {
             displayMessage('Passwords do not match.', 'error');
             return;
         }
-        if (password.length < 6) { // Example constraint
+        if (password.length < 6) {
             displayMessage('Password must be at least 6 characters long.', 'error');
             return;
         }
 
-        displayMessage(`Creating account for: ${username}...`, 'info');
-        // In a real application, you'd send this to a backend for account creation
-        setTimeout(() => {
-            if (loginForm) loginForm.style.display = 'block';
-            if (createAccountForm) createAccountForm.style.display = 'none';
-            displayMessage('Account created successfully! Please log in.', 'success');
-            if (createUsernameInput) createUsernameInput.value = '';
-            if (createPasswordInput) createPasswordInput.value = '';
-            if (confirmPasswordInput) confirmPasswordInput.value = '';
-        }, 1000);
+        displayMessage('Account created successfully! Please log in.', 'success');
+        loginForm.style.display = 'block';
+        createAccountForm.style.display = 'none';
     });
 
-    if (logoutBtn) logoutBtn.addEventListener('click', () => {
+    logoutBtn.addEventListener('click', () => {
         currentUser = null;
-        displayMessage('Logged out.', 'info');
         showAuth();
     });
 
-    // --- Dashboard & Analysis Logic ---
+    vegetationAnalysisBtn.addEventListener('click', () => showAnalysisPage('Vegetation Analysis'));
+    soilDetectionBtn.addEventListener('click', () => showAnalysisPage('Soil Detection'));
 
-    if (vegetationAnalysisBtn) vegetationAnalysisBtn.addEventListener('click', () => {
-        showAnalysisPage('Vegetation Analysis');
+    imageInput.addEventListener('change', e => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = ev => {
+            previewImage.src = ev.target.result;
+            previewImage.style.display = 'block';
+            uploadButton.disabled = false;
+        };
+        reader.readAsDataURL(file);
     });
 
-    if (soilDetectionBtn) soilDetectionBtn.addEventListener('click', () => {
-        showAnalysisPage('Soil Detection');
-    });
-
-    if (imageInput) imageInput.addEventListener('change', (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                if (previewImage) previewImage.src = e.target.result;
-                if (previewImage) previewImage.style.display = 'block';
-                if (uploadButton) uploadButton.disabled = false;
-            };
-            reader.readAsDataURL(file);
-        } else {
-            if (previewImage) previewImage.src = '#';
-            if (previewImage) previewImage.style.display = 'none';
-            if (uploadButton) uploadButton.disabled = true;
-        }
-    });
-
-    if (uploadButton) uploadButton.addEventListener('click', () => {
+    uploadButton.addEventListener('click', async () => {
         const file = imageInput.files[0];
-        if (file) {
-            displayMessage('Processing image...', 'info');
-            if (resultDisplay) resultDisplay.innerHTML = '<p>Processing image... (This would send the image to the backend)</p>';
-            // Simulate API call
-            setTimeout(() => {
-                displayMessage('', 'info'); // Clear message
-                const analysisType = analysisTitle.textContent;
-                let mockResult = '';
-                if (analysisType === 'Vegetation Analysis') {
-                    mockResult = '<h3>Vegetation Analysis Results:</h3><p>Detected sparse vegetation (30% coverage) with signs of potential historical disturbance. Dominant species: grass, small shrubs.</p>';
-                } else if (analysisType === 'Soil Detection') {
-                    mockResult = '<h3>Soil Detection Results:</h3><p>Primary soil type: Loamy sand. High iron content detected in the topsoil layer. Potential anomalies: buried features at coordinates X:123, Y:456.</p>';
-                }
-                if (resultDisplay) resultDisplay.innerHTML = mockResult + '<p>Detailed report available for download.</p>';
-            }, 2000);
-        } else {
-            displayMessage('Please select an image first.', 'error');
+        if (!file) return;
+
+        const endpoint =
+            analysisTitle.textContent === 'Vegetation Analysis'
+                ? '/analyze-vegetation/'
+                : '/detect-soil/';
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        displayMessage('Processing image...', 'info');
+        resultDisplay.innerHTML = '<p>Processing image...</p>';
+
+        try {
+            const response = await fetch(`${BACKEND_URL}${endpoint}`, {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!response.ok) throw new Error('Backend error');
+
+            const result = await response.json();
+
+            if (analysisTitle.textContent === 'Vegetation Analysis') {
+                resultDisplay.innerHTML = `
+                    <h3>Vegetation Analysis</h3>
+                    <p>Vegetation %: ${result.vegetation_percentage}</p>
+                    <p>Class: ${result.classification}</p>
+                    <p>${result.message}</p>
+                `;
+            } else {
+                resultDisplay.innerHTML = `
+                    <h3>Soil Detection</h3>
+                    <p>Soil Type: ${result.soil_type}</p>
+                    <p>Confidence: ${(result.confidence_score * 100).toFixed(0)}%</p>
+                    <p>${result.message}</p>
+                `;
+            }
+        } catch (err) {
+            displayMessage(err.message, 'error');
+            resultDisplay.innerHTML = '<p>Error processing image.</p>';
         }
     });
 
-    if (backToDashboardBtn) backToDashboardBtn.addEventListener('click', () => {
-        showDashboard(currentUser);
-    });
+    backToDashboardBtn.addEventListener('click', () => showDashboard(currentUser));
 });
