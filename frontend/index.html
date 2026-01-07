@@ -4,72 +4,203 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Driven Archaeological Site Mapping</title>
+
     <link rel="stylesheet" href="css/style.css">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    >
 </head>
 <body>
-    <div class="container">
-        <header>
 
+    <!-- ======== Login / Authentication Section ======== -->
+    <section id="auth-section" class="auth-container">
+        <div id="login-form" class="auth-card">
+            <h2>Login</h2>
+            <p>Welcome back! Please enter your details.</p>
 
-            <div id="welcome-message" style="display: none;">
-                Welcome, <span id="username-display"></span>!
-                <button id="logout">Logout</button>
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="text" id="login-username" placeholder="Username">
+            </div>
+
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="login-password" placeholder="Password">
+            </div>
+
+            <button id="login-button">Login</button>
+            <p class="auth-switch">
+                Don't have an account?
+                <a href="#" id="switch-to-create">Create one</a>
+            </p>
+        </div>
+
+        <div id="create-account-form" class="auth-card" style="display: none;">
+            <h2>Create Account</h2>
+            <p>Join us to map the past.</p>
+
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="text" id="create-username" placeholder="Username">
+            </div>
+
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="create-password" placeholder="Password">
+            </div>
+
+            <div class="input-group">
+                <i class="fas fa-check-circle"></i>
+                <input type="password" id="confirm-password" placeholder="Confirm Password">
+            </div>
+
+            <button id="create-account-button">Create Account</button>
+            <p class="auth-switch">
+                Already have an account?
+                <a href="#" id="switch-to-login">Login</a>
+            </p>
+        </div>
+    </section>
+
+    <!-- ======== Main Application Content ======== -->
+    <div id="app-container" style="display: none;">
+        <header class="app-header">
+            <div class="logo">
+                <i class="fas fa-landmark"></i>
+                <h1>ArchAI</h1>
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#analysis-section">Analysis</a></li>
+                </ul>
+            </nav>
+
+            <div id="welcome-message">
+                <span>Welcome, <span id="username-display"></span>!</span>
+                <button id="logout">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
             </div>
         </header>
 
-        <main id="main-content">
-            <div id="message-area" class="card" style="display: none;"></div>
-            <section id="auth-section" class="card">
-                <div id="login-form">
-                    <h2>Login</h2>
-                    <label for="login-username">Username</label>
-                    <input type="text" id="login-username" placeholder="Username">
-                    <label for="login-password">Password</label>
-                    <input type="password" id="login-password" placeholder="Password">
-                    <button id="login-button">Login</button>
-                    <p>Don't have an account? <a href="#" id="switch-to-create">Create one</a></p>
-                </div>
-                <div id="create-account-form" style="display: none;">
-                    <h2>Create Account</h2>
-                    <label for="create-username">Username</label>
-                    <input type="text" id="create-username" placeholder="Username">
-                    <label for="create-password">Password</label>
-                    <input type="password" id="create-password" placeholder="Password">
-                    <label for="confirm-password">Confirm Password</label>
-                    <input type="password" id="confirm-password" placeholder="Confirm Password">
-                    <button id="create-account-button">Create Account</button>
-                    <p>Already have an account? <a href="#" id="switch-to-login">Login</a></p>
+        <main>
+
+            <!-- ======== Hero Section ======== -->
+            <section id="hero" class="hero-section">
+                <div class="hero-content">
+                    <h2>AI-Powered Archaeological Discovery</h2>
+                    <p>
+                        Uncover hidden histories from satellite imagery with advanced soil
+                        and vegetation analysis.
+                    </p>
+                    <a href="#analysis-section" class="cta-button">Start Analysis</a>
                 </div>
             </section>
 
-            <section id="dashboard-section" class="card" style="display: none;">
-                <h1>AI DRIVEN ARCHEOLOGICAL SITE MAPPING</h1>
-                <h2>Choose an Analysis</h2>
-                <div class="analysis-options">
-                    <button id="vegetation-analysis-btn" class="analysis-btn">Vegetation Analysis</button>
-                    <button id="soil-detection-btn" class="analysis-btn">Soil Detection</button>
-                </div>
+            <!-- ======== Overview Section ======== -->
+            <section id="overview" class="content-section">
+                <h2>Project Overview</h2>
+                <p>
+                    ArchAI is a revolutionary platform that stands at the intersection of
+                    history and technology. It empowers archaeologists, researchers, and
+                    history enthusiasts to discover and map potential archaeological sites
+                    with unprecedented speed and accuracy.
+                </p>
             </section>
 
-            <section id="analysis-page" class="card" style="display: none;">
-                <h2 id="analysis-title"></h2>
-                <div class="image-upload-section">
-                    <h3>Browse Image</h3>
-                    <input type="file" id="image-input" accept="image/*">
-                    <button id="upload-button" disabled>Upload Image</button>
-                    <img id="preview-image" src="#" alt="Image Preview" style="display: none;">
-                </div>
-                <div class="result-section">
-                    <h3>Analysis Result</h3>
-                    <div id="result-display">
-                        <!-- Results will be displayed here -->
-                        <p>Upload an image to see results.</p>
+            <!-- ======== Features Section ======== -->
+            <section id="features" class="content-section">
+                <h2>Key Features</h2>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-seedling"></i>
+                        <h3>Advanced Vegetation Analysis</h3>
+                        <p>
+                            Detects cropmarks and vegetation anomalies caused by buried
+                            structures and ancient activity.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <i class="fas fa-layer-group"></i>
+                        <h3>Intelligent Soil Detection</h3>
+                        <p>
+                            Identifies soil composition changes linked to ancient settlements,
+                            hearths, and construction materials.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <i class="fas fa-satellite"></i>
+                        <h3>Seamless Imagery Integration</h3>
+                        <p>
+                            Upload and analyze satellite, drone, or aerial imagery with ease.
+                        </p>
                     </div>
                 </div>
-                <button id="back-to-dashboard">Back to Dashboard</button>
             </section>
+
+            <!-- ======== Analysis Section ======== -->
+            <section id="analysis-section" class="content-section">
+                <h2>Analysis Dashboard</h2>
+
+                <div id="dashboard-section" class="analysis-dashboard">
+                    <h3>Choose an Analysis Type</h3>
+
+                    <div class="analysis-options">
+                        <button id="vegetation-analysis-btn" class="analysis-btn">
+                            <i class="fas fa-leaf"></i>
+                            <span>Vegetation Analysis</span>
+                        </button>
+
+                        <button id="soil-detection-btn" class="analysis-btn">
+                            <i class="fas fa-mountain"></i>
+                            <span>Soil Detection</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="analysis-page" style="display: none;">
+                    <button id="back-to-dashboard" class="back-button">
+                        <i class="fas fa-arrow-left"></i> Back to Dashboard
+                    </button>
+
+                    <h2 id="analysis-title"></h2>
+
+                    <div class="analysis-content-wrapper">
+                        <div class="image-upload-section card">
+                            <h3>1. Upload Image</h3>
+                            <input type="file" id="image-input" accept="image/*">
+                            <img id="preview-image" style="display: none;">
+                            <button id="upload-button" disabled>
+                                <i class="fas fa-cloud-upload-alt"></i> Upload & Analyze
+                            </button>
+                        </div>
+
+                        <div class="result-section card">
+                            <h3>2. Analysis Result</h3>
+                            <div id="result-display">
+                                <p>Upload an image to see results.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
         </main>
+
+        <footer class="app-footer">
+            <p>&copy; 2026 ArchAI. All Rights Reserved.</p>
+        </footer>
     </div>
+
+    <div id="message-area" style="display: none;"></div>
 
     <script src="js/script.js"></script>
 </body>

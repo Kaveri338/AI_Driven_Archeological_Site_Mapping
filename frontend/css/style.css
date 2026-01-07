@@ -1,327 +1,274 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
-/* General Body and Container Styling */
+:root {
+    --primary-font: 'Poppins', sans-serif;
+    --background-dark: #0F2027;
+    --background-light: #2C5364;
+    --text-primary: #E0E0E0;
+    --text-secondary: #B0B0B0;
+    --accent-color: #00E5FF;
+    --card-background: rgba(255, 255, 255, 0.05);
+    --border-color: rgba(255, 255, 255, 0.1);
+    --shadow-color: rgba(0, 0, 0, 0.5);
+    --success-color: #4CAF50;
+    --error-color: #F44336;
+}
+
+/* ======== General Body Styling ======== */
 body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: var(--primary-font);
     margin: 0;
     padding: 0;
-    background: linear-gradient(to right, #8EC5FC, #E0C3FC); /* Soft blue to soft purple gradient for colorful background */
-    color: #333333; /* Dark grey for general text */
+    background: linear-gradient(to right, var(--background-dark), var(--background-light));
+    color: var(--text-primary);
+    overflow-x: hidden;
+}
+
+/* ======== Authentication Section ======== */
+.auth-container {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    overflow-y: auto;
+    padding: 20px;
 }
 
-.container {
-    background-color: rgba(255, 255, 255, 0.9); /* Slightly more transparent to match background */
-    padding: 2rem; /* Reduced padding */
+.auth-card {
+    background: var(--card-background);
+    border: 1px solid var(--border-color);
     border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1); /* Softer shadow */
-    width: 90%;
-    max-width: 400px; /* Even smaller max-width for a compact layout */
-    backdrop-filter: blur(3px); /* Subtle blur */
-    box-sizing: border-box;
-    margin: 20px 0;
-    position: relative; /* For positioning welcome-message */
-}
-
-/* Header Styling (for dashboard) */
-header {
-    margin-bottom: 1.5rem; /* Reduced margin */
-    padding-bottom: 0.8rem; /* Reduced padding */
-    border-bottom: 1px solid #e0e0e0; /* Clean border */
-    position: relative; /* For welcome-message positioning */
-}
-
-header h1 {
-    font-family: 'Roboto', sans-serif;
+    padding: 2rem 2.5rem;
+    max-width: 400px;
+    width: 100%;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px var(--shadow-color);
     text-align: center;
-    color: #3F51B5; /* Deeper blue for main heading */
-    margin-bottom: 0;
-    font-size: 2em; /* Adjusted font size */
+}
+
+.auth-card h2 {
+    font-size: 2.2rem;
     font-weight: 700;
 }
 
-/* Welcome Message and Logout Button */
-#welcome-message {
-    position: absolute; /* Position relative to .container */
-    top: 15px;
-    right: 15px;
-    display: flex; /* To align username and logout button */
-    align-items: center;
-    gap: 10px;
-    font-size: 0.9rem;
-    color: #555;
+.auth-card p {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
 }
 
-#welcome-message span {
-    font-weight: 600;
-    color: #3F51B5;
+.input-group {
+    position: relative;
+    margin-bottom: 1.5rem;
 }
 
-#welcome-message #logout {
-    width: auto; /* Override 100% width */
-    padding: 0.4rem 0.8rem; /* Small padding */
-    font-size: 0.8rem; /* Small font size */
-    border-radius: 5px;
-    background: #FF5252; /* Red color for logout */
-    box-shadow: none;
+.input-group i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
 }
 
-#welcome-message #logout:hover {
-    background: #E04040; /* Darker red on hover */
-    transform: none; /* No vertical transform */
-    box-shadow: none;
-}
-
-
-/* Common form element styling */
-.form-container h2 { /* Used for login/create account titles */
-    font-family: 'Roboto', sans-serif;
-    text-align: center;
-    margin-bottom: 1.5rem; /* Reduced margin */
-    color: #3F51B5; /* Deeper blue for section titles */
-    font-weight: 600;
-    font-size: 1.6em; /* Reduced font size */
-}
-
-label {
-    display: block;
-    text-align: left;
-    margin-bottom: 0.3rem; /* Reduced margin */
-    color: #555;
-    font-weight: 600;
-    font-size: 0.9rem; /* Reduced font size */
-}
-
-input[type="text"],
-input[type="password"],
-input[type="file"] {
+.input-group input {
     width: 100%;
-    padding: 0.8rem; /* Reduced padding for input fields */
-    border: 1px solid #cccccc;
-    border-radius: 6px; /* Slightly smaller radius */
-    box-sizing: border-box;
-    font-size: 0.9rem; /* Reduced font size */
-    margin-bottom: 1rem; /* Space after inputs */
-    transition: border-color 0.3s, box-shadow 0.3s;
+    padding: 1rem 1rem 1rem 3rem;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 1rem;
 }
 
-input[type="text"]:focus,
-input[type="password"]:focus,
-input[type="file"]:focus {
+.input-group input:focus {
     outline: none;
-    border-color: #3F51B5; /* Deeper blue focus */
-    box-shadow: 0 0 5px rgba(63, 81, 181, 0.4);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
 }
 
-button, .analysis-btn, #upload-button, #back-to-dashboard { /* Common button styles, excluding logout */
+.auth-card button {
     width: 100%;
-    padding: 0.7rem 1.2rem; /* Reduced padding for buttons */
-    background: linear-gradient(to right, #3F51B5, #673AB7); /* Blue to Purple gradient */
-    color: white;
+    padding: 1rem;
     border: none;
     border-radius: 8px;
-    font-size: 1rem; /* Reduced font size */
+    background: var(--accent-color);
+    color: var(--background-dark);
+    font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-    margin-top: 1rem; /* Spacing for buttons */
 }
 
-button:hover, #upload-button:hover, #back-to-dashboard:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    background: linear-gradient(to right, #303F9F, #512DA8); /* Darker on hover */
+.auth-card button:hover {
+    background: #00B8D4;
 }
 
-.toggle-link {
-    text-align: center;
-    margin-top: 1rem; /* Reduced margin */
+.auth-switch {
+    margin-top: 1.5rem;
     font-size: 0.9rem;
 }
 
-.toggle-link a {
-    color: #3F51B5; /* Deeper blue link color */
+.auth-switch a {
+    color: var(--accent-color);
     text-decoration: none;
     font-weight: 600;
 }
 
-.toggle-link a:hover {
-    text-decoration: underline;
+/* ======== Header ======== */
+.app-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(15, 32, 39, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    z-index: 1000;
 }
 
-.error { /* For message area error type */
-    color: #e74c3c;
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo i {
+    font-size: 1.8rem;
+    color: var(--accent-color);
+}
+
+.logo h1 {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+nav a {
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: var(--accent-color);
+}
+
+/* ======== Hero Section ======== */
+.hero-section {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    margin-top: 1rem;
+    background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+        url('https://images.unsplash.com/photo-1519681393784-d120267933ba');
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-content h2 {
+    font-size: 3.5rem;
+}
+
+.hero-content p {
+    max-width: 600px;
+    margin: 1rem auto 2rem;
+    color: var(--text-secondary);
+}
+
+.cta-button {
+    padding: 0.8rem 2rem;
+    background: var(--accent-color);
+    color: var(--background-dark);
+    text-decoration: none;
+    border-radius: 50px;
     font-weight: 600;
 }
 
-/* Card Styling for Sections (Dashboard, Analysis) */
-.card {
-    background-color: rgba(255, 255, 255, 0.9); /* Match container transparency */
-    border-radius: 10px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-    padding: 25px;
-    margin-bottom: 20px;
-    border: none;
-}
-
-.card h2 { /* For "Choose an Analysis" and "Analysis Result" */
-    font-family: 'Roboto', sans-serif;
-    color: #3F51B5; /* Deeper blue for section headings */
-    margin-top: 0;
-    margin-bottom: 20px;
-    font-size: 1.8em;
-    font-weight: 700;
-}
-
-/* Analysis Options buttons specific */
+/* ======== Analysis Section ======== */
 .analysis-options {
     display: flex;
     justify-content: center;
-    gap: 15px; /* Reduced gap */
-    margin-top: 25px; /* Reduced margin */
-    flex-wrap: wrap;
+    gap: 2rem;
 }
 
 .analysis-btn {
-    min-width: 180px; /* Smaller width */
-    padding: 0.8rem 1.2rem; /* Consistent with other buttons */
-    font-size: 1rem; /* Consistent with other buttons */
-    border-radius: 8px;
-    background: linear-gradient(to right, #3F51B5, #673AB7); /* Blue to Purple gradient */
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-    color: white;
-}
-
-.analysis-btn:nth-child(2) {
-    background: linear-gradient(to right, #4CAF50, #81C784); /* Vibrant green accent */
-    color: white;
-}
-
-.analysis-btn:nth-child(2):hover {
-    background: linear-gradient(to right, #388E3C, #4CAF50); /* Darker green on hover */
-    color: white;
+    border: 2px solid var(--accent-color);
+    background: transparent;
+    color: var(--accent-color);
+    padding: 1.5rem;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
 .analysis-btn:hover {
-    background: linear-gradient(to right, #303F9F, #512DA8); /* Darker blue/purple on hover */
+    background: var(--accent-color);
+    color: var(--background-dark);
 }
 
-/* Message Area Styling */
-#message-area {
-    margin-bottom: 1.5rem; /* Reduced margin */
-    padding: 10px;
-    border-radius: 5px;
-    font-weight: 600;
-    display: none;
-    font-family: 'Open Sans', sans-serif;
+/* ======== Footer ======== */
+.app-footer {
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-secondary);
 }
 
-.info-message {
-    background-color: #e3f2fd;
-    color: #2196f3;
-    border: 1px solid #90caf9;
-}
+/* ======== Responsive ======== */
+@media (max-width: 900px) {
+    .analysis-options {
+        flex-direction: column;
+    }
 
-.success-message {
-    background-color: #e8f5e9;
-    color: #4caf50;
-    border: 1px solid #a5d6a7;
+    .hero-content h2 {
+        font-size: 2.5rem;
+    }
 }
-
-.error-message {
-    background-color: #ffebee;
-    color: #f44336;
-    border: 1px solid #ef9a9a;
-}
-
-/* Image Upload and Result Section */
-.image-upload-section, .result-section {
-    margin-top: 20px;
-    border: 1px dashed #e0e0e0;
-    padding: 15px;
-    border-radius: 8px;
-    background-color: #fcfcfc;
-}
-
-.image-upload-section h3, .result-section h3 {
-    font-family: 'Roboto', sans-serif;
-    color: #555555;
-    margin-top: 0;
-}
-
-#preview-image {
-    max-width: 100%;
-    height: auto;
-    max-height: 200px;
-    margin-top: 15px;
-    border: 1px solid #dddddd;
-    border-radius: 5px;
-}
-
 #result-display {
-    background-color: #f9f9f9;
-    border-radius: 8px;
+    min-height: 200px;
+    display: flex;              /* Enable flexbox */
+    flex-direction: column;     /* Stack content vertically */
+    justify-content: center;    /* Center content vertically */
+    align-items: center;        /* Center content horizontally */
+    text-align: center;         /* Center text */
     padding: 12px;
-    min-height: 80px;
-    text-align: left;
-    margin-top: 15px;
-    color: #555555;
-    white-space: pre-wrap;
-    font-family: 'Open Sans', sans-serif;
+    background-color: var(--card-background);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
 }
 
 #result-display p {
+    color: var(--text-secondary);
+    line-height: 1.7;
     margin: 0;
-    line-height: 1.5;
 }
 
-/* Links (general) */
-a {
-    color: #3F51B5; /* Deeper blue link color */
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.3s ease;
+#result-display h3 {
+    color: var(--accent-color);
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+#preview-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+/* Hide the upload button as it's no longer needed */
+#upload-button {
+    display: none;
 }
 
-a:hover {
-    color: #303F9F; /* Darker blue on hover */
-    text-decoration: underline;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .container {
-        width: 95%;
-        padding: 20px;
-    }
-
-    header h1 {
-        font-size: 1.6em;
-    }
-
-    .analysis-options {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .analysis-btn {
-        width: 100%;
-    }
-}
-
-@media (max-width: 480px) {
-    header h1 {
-        font-size: 1.4em;
-    }
-    #auth-nav button, .analysis-btn, #upload-button, #login-button, #create-account-button, #back-to-dashboard {
-        padding: 8px 12px;
-        font-size: 0.8em;
-    }
+/* Make the preview image smaller and centered */
+#preview-image {
+    display: block;
+    margin: 1.5rem auto; /* Adds space and centers it */
+    max-width: 250px;   /* Adjust size if needed */
+    max-height: 250px;
+    border: 2px solid var(--border-color);
+    box-shadow: 0 5px 15px var(--shadow-color);
 }
